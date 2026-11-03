@@ -711,6 +711,15 @@
   }
   function randomWorld(){startWorld(randomNames[Math.floor(Math.random()*randomNames.length)]);}
 
+  let previewTimer=0;
+  $('worldInput').addEventListener('input',()=>{
+    if(activeWord)return;
+    clearTimeout(previewTimer);
+    previewTimer=setTimeout(()=>{
+      scene=createScene(normalize($('worldInput').value)||'Horizon');
+      meteors=[];
+    },220);
+  });
   $('worldForm').addEventListener('submit',event=>{
     event.preventDefault();startWorld($('worldInput').value);
   });
