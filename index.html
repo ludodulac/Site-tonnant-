@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050712">
+  <meta name="description" content="ANOMALIA — Une expérience poétique interactive. Écrivez un mot : il devient un monde vivant, musical et unique.">
+  <meta property="og:title" content="ANOMALIA — L'atelier de l'impossible">
+  <meta property="og:description" content="Et si un mot devenait un monde ? Entrez dans une expérience interactive à explorer.">
+  <title>ANOMALIA — L'atelier de l'impossible</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Aller au contenu</a>
+  <canvas id="universe" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="transition-flash" id="flash" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="ANOMALIA, revenir à l'accueil" id="brandHome">
+      <span class="brand-symbol">✳</span>
+      <span class="brand-copy">ANOMALIA <small>LABORATOIRE DES MONDES IMPOSSIBLES</small></span>
+    </a>
+    <div class="nav-actions">
+      <span class="edition">UNE EXPÉRIENCE VIVANTE <span class="blink">●</span></span>
+      <button type="button" class="nav-button sound" id="soundButton" aria-pressed="false" title="Activer ou couper le son"><span class="sound-icon" id="soundIcon">◌</span> <span id="soundLabel">SON OFF</span></button>
+      <button type="button" class="nav-button atlas-nav" id="atlasButton" aria-haspopup="dialog"><span class="atlas-diamond">◇</span> MON ATLAS <span class="count-bubble" id="atlasCount">0</span></button>
+    </div>
+  </header>
+
+  <main id="content">
+    <section class="intro" id="intro" aria-labelledby="introTitle">
+      <div class="intro-inner">
+        <p class="eyebrow"><span class="eyebrow-line"></span> EXPÉRIENCE N° 001 <span class="mid-dot">·</span> L'INFINI PERSONNEL</p>
+        <h1 id="introTitle">Et si un mot<br>devenait <em>un monde&nbsp;?</em></h1>
+        <p class="intro-copy">Il existe des endroits qui n'apparaissent sur aucune carte.<br class="wide-only"> Ils attendent simplement que vous les imaginiez.</p>
+        <form id="worldForm" class="world-form">
+          <label for="worldInput">DONNEZ UN NOM À L'IMPOSSIBLE</label>
+          <div class="input-wrap">
+            <span class="input-spark" aria-hidden="true">✦</span>
+            <input id="worldInput" type="text" maxlength="42" autocomplete="off" spellcheck="false" placeholder="Un souvenir, une idée, un prénom…" required aria-describedby="formHelp">
+            <button type="submit" class="create-button"><span>DONNER VIE</span><span class="button-arrow" aria-hidden="true">↗</span></button>
+          </div>
+          <div id="formHelp" class="form-bottom">
+            <span>OU LAISSEZ LE HASARD DÉCIDER</span>
+            <button class="random-link" type="button" id="randomIntro">SURPRENEZ-MOI <span aria-hidden="true">↗</span></button>
+          </div>
+        </form>
+      </div>
+      <div class="intro-footer"><span>01 / ∞</span><span class="mouse-scroll-icon" aria-hidden="true">↓</span><span>FAIT D'ÉTOILES, DE CODE ET D'IMAGINATION</span></div>
+    </section>
+
+    <section class="experience" id="experience" aria-labelledby="worldTitle" hidden>
+      <div class="world-data">
+        <p class="eyebrow"><span class="eyebrow-line"></span> ARCHIVE <span id="worldArchive">000001</span> <span class="mid-dot">·</span> MONDE DÉCOUVERT</p>
+        <div class="world-title-wrap">
+          <p class="pretitle">VOUS AVEZ DONNÉ NAISSANCE À</p>
+          <h2 id="worldTitle"></h2>
+          <p class="world-quote" id="worldQuote"></p>
+        </div>
+        <div class="world-signature"><span id="worldClimate"></span><span class="signature-divider">/</span><span id="worldFrequency"></span></div>
+      </div>
+      <div class="touch-instruction" id="touchInstruction"><span class="touch-icon">✳</span><span>TOUCHEZ LE CIEL. LAISSEZ UNE TRACE.</span></div>
+      <div class="experience-footer">
+        <div class="experience-actions">
+          <button type="button" class="primary-action" id="newWorldButton"><span aria-hidden="true">✧</span> AUTRE MONDE</button>
+          <button type="button" class="secondary-action" id="captureButton" title="Enregistrer une image de ce monde"><span aria-hidden="true">▣</span> CAPTURER</button>
+          <button type="button" class="secondary-action" id="shareButton" title="Copier le lien vers ce monde"><span aria-hidden="true">↗</span> PARTAGER</button>
+        </div>
+        <div class="world-stats"><span>ÉTOILES SEMÉES <b id="starCount">00</b></span><span>COORDONNÉES <b id="worldCoords">0.00 / 0.00</b></span></div>
+      </div>
+      <div class="explore-hint">GLISSEZ POUR EXPLORER <span>·</span> TOUCHEZ POUR CRÉER <span>·</span> ESPACE POUR TRAVERSER</div>
+    </section>
+  </main>
+
+  <div class="atlas-backdrop" id="atlasBackdrop" hidden></div>
+  <aside class="atlas-panel" id="atlasPanel" role="dialog" aria-modal="true" aria-labelledby="atlasTitle" aria-hidden="true" tabindex="-1">
+    <div class="atlas-head"><div><p class="eyebrow">VOTRE COLLECTION SECRÈTE</p><h2 id="atlasTitle">L'Atlas des <em>impossibles.</em></h2></div><button type="button" class="close-button" id="atlasClose" aria-label="Fermer l'atlas">×</button></div>
+    <p class="atlas-description">Chaque mot que vous inventez ouvre un lieu unique. Vos mondes et les étoiles que vous y semez restent dans ce navigateur.</p>
+    <div id="atlasList" class="atlas-list"></div>
+    <div class="atlas-bottom"><button type="button" id="atlasCreate" class="atlas-create">+ INVENTER UN NOUVEAU MONDE <span>↗</span></button><span>SAUVEGARDE LOCALE SUR CET APPAREIL</span></div>
+  </aside>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div class="orientation-mark" aria-hidden="true"><span>✳</span><span>ANOMALIA / 2026</span></div>
+</body>
+</html>
